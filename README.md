@@ -45,16 +45,11 @@
 - **flask-cors 6.0.1**: Cross-origin resource sharing for frontend-backend communication.
 
 ### Frontend
-- **Next.js 14.2.25**: React framework for server-side rendering and static site generation.
-- **React 19+**: Component-based UI development.
-- **Tailwind CSS**: Utility-first CSS framework for styling (via `tailwindcss`, `class-variance-authority`, etc.).
-- **Radix UI**: Accessible UI primitives for forms, modals, and navigation.
-- **Lucide React**: Icon library for visual elements.
-- **Additional Libraries**:
-  - `react-hook-form`: Form validation and handling.
-  - `recharts`: Data visualization (optional for future enhancements).
-  - `sonner`: Toast notifications.
-  - `vercel/analytics`: Performance monitoring (optional).
+- **HTML5, CSS3, JavaScript (Vanilla)**: The frontend is a static web interface built with modern responsive design.
+- **Custom Script (script.js)**: Handles API calls to the Flask backend and manages form submissions, validations, and result redirection.
+- **Responsive UI**: Designed with mobile-first principles, featuring smooth navigation, form handling, and interactive result displays.
+- **Results Page (results.html)**: Dynamically displays predictions and recommendations retrieved from the backend, styled with modern CSS.
+
 
 ### Tools
 - **Git**: Version control.
@@ -68,7 +63,7 @@ future-predictor/
 ├── backend/
 │   ├── app.py                       # Flask app with API endpoints
 │   ├── req.txt                      # Python dependencies
-│   ├── preprocessing/               # ML training scripts
+│── preprocessing/               # ML training scripts
 │   │   ├── Budgetrecommendations.py # KMeans clustering for budget analysis
 │   │   ├── MoveRecommendation.py    # TF-IDF movie recommendation
 │   │   ├── PlacementAnalysis.py     # BaggingClassifier for placement prediction
