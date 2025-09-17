@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Prediction Results - Future Predictor</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background: #ffffff;
+            --foreground: #475569;
+            --card: #f1f5f9;
+            --card-foreground: #1f2937;
+            --popover: #ffffff;
+            --popover-foreground: #475569;
+            --primary: #059669;
+            --primary-foreground: #ffffff;
+            --secondary: #10b981;
+            --secondary-foreground: #ffffff;
+            --muted: #f1f5f9;
+            --muted-foreground: #6b7280;
+            --accent: #10b981;
+            --accent-foreground: #ffffff;
+            --destructive: #dc2626;
+            --destructive-foreground: #ffffff;
+            --border: #e5e7eb;
+            --input: #ffffff;
+            --ring: rgba(5, 150, 105, 0.5);
+            --chart-1: #059669;
+            --chart-2: #10b981;
+            --chart-3: #475569;
+            --chart-4: #6366f1;
+            --chart-5: #8b5cf6;
+            --radius: 0.5rem;
+            --sidebar: #f1f5f9;
+            --sidebar-foreground: #1f2937;
+            --sidebar-primary: #059669;
+            --sidebar-primary-foreground: #ffffff;
+            --sidebar-accent: #10b981;
+            --sidebar-accent-foreground: #ffffff;
+            --sidebar-border: #e5e7eb;
+            --sidebar-ring: rgba(5, 150, 105, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--foreground);
+            background: var(--background);
+            min-height: 100vh;
+        }
+
+        /* Added professional website header navigation */
+        .navbar {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--foreground);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .cta-button {
+            background: var(--primary);
+            color: var(--primary-foreground);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+        }
+
+        /* Redesigned main container for website feel */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--primary-foreground);
+            border-radius: var(--radius);
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="1" fill="white" opacity="0.1"/><circle cx="10" cy="90" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-section h1 {
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 700;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-section .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Redesigned content sections with better visual hierarchy */
+        .content-section {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .content-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .section-header h2 {
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: var(--card-foreground);
+        }
+
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: var(--primary-foreground);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        /* Enhanced input data display with modern card design */
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .input-card {
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .input-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+        }
+
+        .input-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(5, 150, 105, 0.1);
+            border-color: var(--primary);
+        }
+
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            color: var(--muted-foreground);
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
+            color: var(--primary-foreground);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+
+        .input-value {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--card-foreground);
+        }
+
+        /* Enhanced results display with professional styling */
+        .results-display {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--primary-foreground);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .results-display::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .results-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .prediction-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 1.5rem 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Beautiful suggestions box with modern design */
+        .suggestions-container {
+            background: var(--background);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-top: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .suggestions-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .suggestions-header h3 {
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: var(--card-foreground);
+            margin-bottom: 0.5rem;
+        }
+
+        .suggestions-subtitle {
+            color: var(--muted-foreground);
+            font-size: 1rem;
+        }
+
+        .suggestions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .suggestion-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .suggestion-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .suggestion-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(5, 150, 105, 0.15);
+            border-color: var(--primary);
+        }
+
+        .suggestion-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--primary-foreground);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 1rem;
+        }
+
+        .suggestion-text {
+            font-weight: 600;
+            color: var(--card-foreground);
+            font-size: 1rem;
+        }
+
+        /* Enhanced action buttons with modern styling */
+        .actions-section {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .action-btn {
+            background: var(--background);
+            color: var(--foreground);
+            border: 2px solid var(--border);
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .action-btn.primary {
+            background: var(--primary);
+            color: var(--primary-foreground);
+            border-color: var(--primary);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-btn.primary:hover {
+            background: var(--secondary);
+            border-color: var(--secondary);
+        }
+
+        .error-display {
+            background: var(--destructive);
+            color: var(--destructive-foreground);
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .error-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive design improvements */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .main-container {
+                padding: 1rem;
+            }
+            
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+            
+            .input-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .actions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Added professional website navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-brain"></i>
+                Future Predictor
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="index.html" class="cta-button">
+                <i class="fas fa-plus"></i>
+                New Prediction
+            </a>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div id="results-content">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        function displayResults() {
+            const resultData = localStorage.getItem('predictionResult');
+            const resultsContent = document.getElementById('results-content');
+            
+            if (!resultData) {
+                resultsContent.innerHTML = `
+                    <div class="error-display">
+                        <div class="error-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <h2>No Results Found</h2>
+                        <p>It looks like you haven't made any predictions yet.</p>
+                        <div style="margin-top: 2rem;">
+                            <a href="index.html" class="action-btn primary">
+                                <i class="fas fa-home"></i> Go Back Home
+                            </a>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            const { type, data, result } = JSON.parse(resultData);
+            
+            const headers = {
+                student: { icon: 'fas fa-chart-line', title: 'Student Performance Analysis', subtitle: 'AI-powered academic performance prediction and insights' },
+                placement: { icon: 'fas fa-briefcase', title: 'Career Placement Prediction', subtitle: 'Intelligent career placement probability analysis' },
+                budget: { icon: 'fas fa-calculator', title: 'Smart Budget Analysis', subtitle: 'AI-driven financial planning and savings recommendations' },
+                movie: { icon: 'fas fa-film', title: 'Personalized Movie Recommendations', subtitle: 'Discover your next favorite movies with AI' }
+            };
+
+            const header = headers[type];
+            
+            let content = `
+                <div class="hero-section">
+                    <div class="hero-content">
+                        <div class="hero-icon"><i class="${header.icon}"></i></div>
+                        <h1>${header.title}</h1>
+                        <p class="subtitle">${header.subtitle}</p>
+                    </div>
+                </div>
+            `;
+
+            // Input Data Section
+            content += `
+                <div class="content-section">
+                    <div class="section-header">
+                        <div class="section-icon"><i class="fas fa-database"></i></div>
+                        <h2>Input Analysis</h2>
+                    </div>
+                    <div class="input-grid">
+            `;
+
+            for (const [key, value] of Object.entries(data)) {
+                const icon = getFieldIcon(key);
+                const formattedKey = formatFieldName(key);
+                const formattedValue = formatFieldValue(key, value);
+                
+                content += `
+                    <div class="input-card">
+                        <div class="input-label">
+                            <div class="input-icon"><i class="${icon}"></i></div>
+                            ${formattedKey}
+                        </div>
+                        <div class="input-value">${formattedValue}</div>
+                    </div>
+                `;
+            }
+
+            content += `</div></div>`;
+
+            // Results Section
+            if (result.error) {
+                content += `
+                    <div class="error-display">
+                        <div class="error-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <h2>Prediction Error</h2>
+                        <p>${result.error}</p>
+                        <p>Please make sure your Flask API server is running on http://localhost:5000</p>
+                    </div>
+                `;
+            } else {
+                content += `<div class="content-section">`;
+                
+                if (type === 'budget') {
+                    content += `
+                        <div class="section-header">
+                            <div class="section-icon"><i class="fas fa-crystal-ball"></i></div>
+                            <h2>AI Analysis Results</h2>
+                        </div>
+                    `;
+                    
+                    if (result.recommendation && typeof result.recommendation === 'object') {
+                        const rec = result.recommendation;
+                        
+                        content += `<div class="results-display"><div class="results-content">`;
+                        
+                        if (rec.Status) {
+                            content += `<div class="prediction-value">${rec.Status}</div>`;
+                        }
+                        
+                        let details = '';
+                        if (rec.Cluster !== undefined) details += `Cluster: ${rec.Cluster}\n`;
+                        if (rec.Shortfall !== undefined) details += `Shortfall: ₹${rec.Shortfall}\n`;
+                        if (rec.Extra_Savings !== undefined) details += `Extra Savings: ₹${rec.Extra_Savings}`;
+                        
+                        if (details) {
+                            content += `<div style="white-space: pre-line; font-size: 1.1rem; opacity: 0.9;">${details}</div>`;
+                        }
+                        
+                        content += `</div></div>`;
+                        
+                        if (rec.Suggestions && Array.isArray(rec.Suggestions) && rec.Suggestions.length > 0) {
+                            content += `
+                                <div class="suggestions-container">
+                                    <div class="suggestions-header">
+                                        <h3><i class="fas fa-lightbulb"></i> Smart Savings Recommendations</h3>
+                                        <p class="suggestions-subtitle">Personalized suggestions to help you reach your financial goals</p>
+                                    </div>
+                                    <div class="suggestions-grid">
+                            `;
+                            
+                            rec.Suggestions.forEach(suggestion => {
+                                const cleanSuggestion = suggestion.replace(/_/g, ' ');
+                                const icon = getSuggestionIcon(cleanSuggestion);
+                                content += `
+                                    <div class="suggestion-card">
+                                        <div class="suggestion-icon"><i class="${icon}"></i></div>
+                                        <div class="suggestion-text">${cleanSuggestion}</div>
+                                    </div>
+                                `;
+                            });
+                            
+                            content += `</div></div>`;
+                        }
+                    }
+                } else if (type === 'movie') {
+                    content += `
+                        <div class="section-header">
+                            <div class="section-icon"><i class="fas fa-crystal-ball"></i></div>
+                            <h2>Prediction Results</h2>
+                        </div>
+                    `;
+                    
+                    if (result.recommendations && Array.isArray(result.recommendations)) {
+                        content += `<div class="prediction-value">Recommended Movies:</div>`;
+                        content += `<ul style="list-style-type: disc; text-align: left; margin-left: 2rem; font-size: 1.1rem;">`;
+                        result.recommendations.forEach(movie => {
+                            content += `<li>${movie}</li>`;
+                        });
+                        content += `</ul>`;
+                    } else {
+                        content += `<div class="prediction-value">No recommendations found.</div>`;
+                    }
+                } else {
+                    // Other prediction types
+                    content += `
+                        <div class="section-header">
+                            <div class="section-icon"><i class="fas fa-crystal-ball"></i></div>
+                            <h2>Prediction Results</h2>
+                        </div>
+                        <div class="results-display">
+                            <div class="results-content">
+                    `;
+                    
+                    if (result.prediction) {
+                        content += `<div class="prediction-value">${result.prediction}</div>`;
+                        
+                        if (type === 'placement') {
+                            if (result.prediction.toLowerCase().includes('placed') || result.prediction === '1') {
+                                content += `
+                                    <div style="font-size: 1.2rem; margin-top: 1.5rem; line-height: 1.6;">
+                                        <p style="margin-bottom: 1rem;">🎉 <strong>Congratulations!</strong> Based on your academic profile and skills, you have excellent placement prospects!</p>
+                                        <p style="margin-bottom: 1rem;">Your strong performance in academics, projects, and extracurricular activities positions you well for campus placements.</p>
+                                        <p><strong>Keep up the great work and stay confident during your placement interviews!</strong></p>
+                                    </div>
+                                `;
+                            } else {
+                                content += `
+                                    <div style="font-size: 1.2rem; margin-top: 1.5rem; line-height: 1.6;">
+                                        <p style="margin-bottom: 1rem;">💪 <strong>Don't worry!</strong> This prediction is based on current data, but you can definitely improve your chances.</p>
+                                        <p style="margin-bottom: 1rem;">Consider focusing on: improving your CGPA, gaining more project experience, developing soft skills, and participating in placement training programs.</p>
+                                        <p><strong>Remember: Every successful professional started somewhere. Keep working hard and opportunities will come!</strong></p>
+                                    </div>
+                                `;
+                            }
+                        }
+                    }
+                    
+                    if (result.recommendation) {
+                        content += `<div style="font-size: 1.1rem; opacity: 0.9; margin-top: 1rem;">${result.recommendation}</div>`;
+                    }
+                    
+                    content += `</div></div>`;
+                }
+                
+                content += `</div>`;
+            }
+
+            // Actions Section
+            content += `
+                <div class="actions-section">
+                    <h3>What's Next?</h3>
+                    <div class="actions-grid">
+                        <a href="index.html" class="action-btn primary">
+                            <i class="fas fa-redo"></i> New Prediction
+                        </a>
+                        <button onclick="window.print()" class="action-btn">
+                            <i class="fas fa-print"></i> Print Results
+                        </button>
+                        <button onclick="shareResults()" class="action-btn">
+                            <i class="fas fa-share"></i> Share Results
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            resultsContent.innerHTML = content;
+        }
+
+        function shareResults() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'My AI Prediction Results',
+                    text: 'Check out my AI prediction results from Future Predictor!',
+                    url: window.location.href
+                });
+            } else {
+                const url = window.location.href;
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('Results URL copied to clipboard!');
+                });
+            }
+        }
+
+        function getSuggestionIcon(suggestion) {
+            const lowerSuggestion = suggestion.toLowerCase();
+            if (lowerSuggestion.includes('eating') || lowerSuggestion.includes('food')) {
+                return 'fas fa-utensils';
+            } else if (lowerSuggestion.includes('entertainment') || lowerSuggestion.includes('movie')) {
+                return 'fas fa-film';
+            } else if (lowerSuggestion.includes('transport') || lowerSuggestion.includes('travel')) {
+                return 'fas fa-car';
+            } else if (lowerSuggestion.includes('shopping') || lowerSuggestion.includes('clothes')) {
+                return 'fas fa-shopping-bag';
+            } else if (lowerSuggestion.includes('gym') || lowerSuggestion.includes('fitness')) {
+                return 'fas fa-dumbbell';
+            } else {
+                return 'fas fa-cut';
+            }
+        }
+
+        function getFieldIcon(fieldName) {
+            const field = fieldName.toLowerCase();
+            if (field.includes('cgpa') || field.includes('marks') || field.includes('score')) {
+                return 'fas fa-star';
+            } else if (field.includes('project')) {
+                return 'fas fa-code';
+            } else if (field.includes('internship')) {
+                return 'fas fa-briefcase';
+            } else if (field.includes('workshop') || field.includes('certification')) {
+                return 'fas fa-certificate';
+            } else if (field.includes('extracurricular') || field.includes('activities')) {
+                return 'fas fa-users';
+            } else if (field.includes('training')) {
+                return 'fas fa-graduation-cap';
+            } else if (field.includes('skill')) {
+                return 'fas fa-brain';
+            } else if (field.includes('aptitude')) {
+                return 'fas fa-puzzle-piece';
+            } else if (field.includes('income') || field.includes('salary')) {
+                return 'fas fa-dollar-sign';
+            } else if (field.includes('age')) {
+                return 'fas fa-calendar';
+            } else if (field.includes('expense') || field.includes('cost')) {
+                return 'fas fa-shopping-cart';
+            } else if (field.includes('saving')) {
+                return 'fas fa-piggy-bank';
+            } else {
+                return 'fas fa-info-circle';
+            }
+        }
+
+        function formatFieldName(fieldName) {
+            return fieldName
+                .replace(/_/g, ' ')
+                .replace(/([A-Z])/g, ' $1')
+                .replace(/\b\w/g, l => l.toUpperCase())
+                .trim();
+        }
+
+        function formatFieldValue(fieldName, value) {
+            const field = fieldName.toLowerCase();
+            
+            if (field.includes('income') || field.includes('salary') || field.includes('expense') || field.includes('saving')) {
+                if (typeof value === 'number') {
+                    return `₹${value.toLocaleString()}`;
+                }
+            }
+            
+            if (field.includes('marks') && typeof value === 'number') {
+                return `${value}%`;
+            }
+            
+            if (value === 'Yes' || value === 'No') {
+                return value === 'Yes' ? '✅ Yes' : '❌ No';
+            }
+            
+            if (field.includes('score') && typeof value === 'number') {
+                return `${value}/100`;
+            }
+            
+            return value;
+        }
+
+        // Load results when page loads
+        document.addEventListener('DOMContentLoaded', displayResults);
+    </script>
+</body>
+</html>

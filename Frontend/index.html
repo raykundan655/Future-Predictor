@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Future Predictor - AI-Powered Predictions</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>🔮 Future Predictor</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Predict Your Future with AI</h1>
+            <p>Harness the power of artificial intelligence to make informed decisions about your education, finances, and entertainment choices.</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <h3>95%</h3>
+                    <p>Accuracy Rate</p>
+                </div>
+                <div class="stat-item">
+                    <h3>10K+</h3>
+                    <p>Predictions Made</p>
+                </div>
+                <div class="stat-item">
+                    <h3>3</h3>
+                    <p>AI Models</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Services Section -->
+    <section id="services" class="services-section">
+        <div class="container">
+            <h2>Choose Your Prediction Category</h2>
+            <p class="services-subtitle">Select a category below to explore our AI-powered prediction models</p>
+            
+            <div class="services-grid">
+                <!-- Education Card -->
+                <div class="service-card" onclick="toggleSection('education')">
+                    <div class="service-icon">🎓</div>
+                    <h3>Education Predictions</h3>
+                    <p>Unlock your academic potential with AI-powered education analytics. Predict student performance and placement opportunities based on study patterns and academic history.</p>
+                    <div class="service-features">
+                        <span class="feature-tag">Performance Analysis</span>
+                        <span class="feature-tag">Placement Prediction</span>
+                    </div>
+                    <div class="service-arrow">→</div>
+                </div>
+
+                <!-- Finance Card -->
+                <div class="service-card" onclick="toggleSection('finance')">
+                    <div class="service-icon">💰</div>
+                    <h3>Financial Intelligence</h3>
+                    <p>Take control of your financial future with intelligent budget analysis. Get personalized recommendations to optimize spending and achieve your savings goals.</p>
+                    <div class="service-features">
+                        <span class="feature-tag">Budget Analysis</span>
+                        <span class="feature-tag">Savings Optimization</span>
+                    </div>
+                    <div class="service-arrow">→</div>
+                </div>
+
+                <!-- Entertainment Card -->
+                <div class="service-card" onclick="toggleSection('entertainment')">
+                    <div class="service-icon">🎬</div>
+                    <h3>Entertainment Recommendations</h3>
+                    <p>Discover your next favorite movie with our intelligent recommendation engine. Get personalized suggestions based on your viewing preferences and taste.</p>
+                    <div class="service-features">
+                        <span class="feature-tag">Movie Recommendations</span>
+                        <span class="feature-tag">Personalized Suggestions</span>
+                    </div>
+                    <div class="service-arrow">→</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="prediction-section hidden">
+        <div class="container">
+            <div class="section-header">
+                <button class="back-btn" onclick="closeSection()">← Back to Categories</button>
+                <h2>🎓 Education Predictions</h2>
+                <p>Choose your prediction model below:</p>
+            </div>
+            
+            <div class="prediction-options">
+                <!-- Student Performance Option -->
+                <div class="prediction-card">
+                    <div class="prediction-header">
+                        <h3>📊 Student Performance Predictor</h3>
+                        <p>Analyze your study habits and predict academic performance outcomes</p>
+                    </div>
+                    <div class="prediction-description">
+                        <p><strong>What it does:</strong> Our AI analyzes your study patterns, sleep habits, and practice sessions to predict your academic performance. Perfect for students who want to optimize their study strategy.</p>
+                        <p><strong>Best for:</strong> Students preparing for exams, those wanting to improve grades, academic planning</p>
+                    </div>
+                    <button class="prediction-btn" onclick="toggleForm('student-form')">Start Prediction</button>
+                    
+                    <div id="student-form" class="form-container hidden">
+                        <form onsubmit="submitStudentForm(event)">
+                            <div class="form-group">
+                                <label>Hours Studied (per day)</label>
+                                <input type="number" name="Hours Studied" min="0" max="24" step="0.1" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Previous Scores (%)</label>
+                                <input type="number" name="Previous Scores" min="0" max="100" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Extracurricular Activities</label>
+                                <select name="Extracurricular Activities" required>
+                                    <option value="">Select</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                                <small>Do you participate in extracurricular activities?</small>
+                            </div>
+                            <div class="form-group">
+                                <label>Sleep Hours (per day)</label>
+                                <input type="number" name="Sleep Hours" min="0" max="24" step="0.1" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Sample Question Papers Practiced</label>
+                                <input type="number" name="Sample Question Papers Practiced" min="0" required>
+                            </div>
+                            <button type="submit" class="btn-primary">Predict Performance</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Placement Prediction Option -->
+                <div class="prediction-card">
+                    <div class="prediction-header">
+                        <h3>💼 Placement Predictor</h3>
+                        <p>Evaluate your job placement prospects and career readiness</p>
+                    </div>
+                    <div class="prediction-description">
+                        <p><strong>What it does:</strong> Comprehensive analysis of your academic performance, skills, and extracurricular activities to predict job placement success. Get insights into your employability.</p>
+                        <p><strong>Best for:</strong> Final year students, career planning, skill gap analysis, placement preparation</p>
+                    </div>
+                    <button class="prediction-btn" onclick="toggleForm('placement-form')">Start Analysis</button>
+                    
+                    <div id="placement-form" class="form-container hidden">
+                        <form onsubmit="submitPlacementForm(event)">
+                            <div class="form-group">
+                                <label>CGPA</label>
+                                <input type="number" name="CGPA" min="0" max="10" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Aptitude Test Score</label>
+                                <input type="number" name="AptitudeTestScore" min="0" max="100" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Soft Skills Rating</label>
+                                <input type="number" name="SoftSkillsRating" min="0" max="5" step="0.1" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Internships Completed</label>
+                                <input type="number" name="Internships" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Projects Completed</label>
+                                <input type="number" name="Projects" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Workshops/Certifications</label>
+                                <input type="number" name="Workshops/Certifications" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Extracurricular Activities</label>
+                                <select name="ExtracurricularActivities" required>
+                                    <option value="">Select</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Placement Training</label>
+                                <select name="PlacementTraining" required>
+                                    <option value="">Select</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>SSC Marks (%)</label>
+                                <input type="number" name="SSC_Marks" min="0" max="100" required>
+                            </div>
+                            <div class="form-group">
+                                <label>HSC Marks (%)</label>
+                                <input type="number" name="HSC_Marks" min="0" max="100" required>
+                            </div>
+                            <button type="submit" class="btn-primary">Predict Placement</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Finance Section -->
+    <section id="finance" class="prediction-section hidden">
+        <div class="container">
+            <div class="section-header">
+                <button class="back-btn" onclick="closeSection()">← Back to Categories</button>
+                <h2>💰 Financial Intelligence</h2>
+                <p>Optimize your financial future with AI-powered analysis:</p>
+            </div>
+            
+            <div class="prediction-options">
+                <div class="prediction-card">
+                    <div class="prediction-header">
+                        <h3>📈 Budget Analysis & Recommendations</h3>
+                        <p>Get personalized financial advice and spending optimization</p>
+                    </div>
+                    <div class="prediction-description">
+                        <p><strong>What it does:</strong> Analyzes your spending patterns across different categories and provides personalized recommendations to help you achieve your savings goals while maintaining your lifestyle.</p>
+                        <p><strong>Best for:</strong> Budget planning, expense optimization, savings goal achievement, financial health improvement</p>
+                    </div>
+                    <button class="prediction-btn" onclick="toggleForm('budget-form')">Analyze Budget</button>
+                    
+                    <div id="budget-form" class="form-container hidden">
+                        <form onsubmit="submitBudgetForm(event)">
+                            <div class="form-group">
+                                <label>Eating Out (monthly)</label>
+                                <input type="number" name="Eating_Out" min="0" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Entertainment (monthly)</label>
+                                <input type="number" name="Entertainment" min="0" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Miscellaneous (monthly)</label>
+                                <input type="number" name="Miscellaneous" min="0" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Groceries (monthly)</label>
+                                <input type="number" name="Groceries" min="0" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Transport (monthly)</label>
+                                <input type="number" name="Transport" min="0" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Desired Savings (monthly)</label>
+                                <input type="number" name="Desired_Savings" min="0" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Disposable Income (monthly)</label>
+                                <input type="number" name="Disposable_Income" min="0" step="0.01" required>
+                            </div>
+                            <button type="submit" class="btn-primary">Get Recommendations</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Entertainment Section -->
+    <section id="entertainment" class="prediction-section hidden">
+        <div class="container">
+            <div class="section-header">
+                <button class="back-btn" onclick="closeSection()">← Back to Categories</button>
+                <h2>🎬 Entertainment Recommendations</h2>
+                <p>Discover your next favorite movie with AI:</p>
+            </div>
+            
+            <div class="prediction-options">
+                <div class="prediction-card">
+                    <div class="prediction-header">
+                        <h3>🎭 Movie Recommendation Engine</h3>
+                        <p>Find movies perfectly matched to your taste</p>
+                    </div>
+                    <div class="prediction-description">
+                        <p><strong>What it does:</strong> Our AI analyzes movie characteristics like genre, plot themes, cast, and user ratings to recommend films similar to ones you've enjoyed. No more endless scrolling!</p>
+                        <p><strong>Best for:</strong> Movie discovery, finding similar films, exploring new genres, weekend entertainment planning</p>
+                        <div class="example-section">
+                            <h4>✨ Example Recommendations:</h4>
+                            <div class="examples">
+                                <div class="example-item">
+                                    <strong>Input:</strong> "The Dark Knight" → <strong>AI Suggests:</strong> Batman Begins, Joker, Heat
+                                </div>
+                                <div class="example-item">
+                                    <strong>Input:</strong> "Inception" → <strong>AI Suggests:</strong> Interstellar, The Matrix, Memento
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="prediction-btn" onclick="toggleForm('movie-form')">Find Movies</button>
+                    
+                    <div id="movie-form" class="form-container hidden">
+                        <form onsubmit="submitMovieForm(event)">
+                            <div class="form-group">
+                                <label>Enter a movie title you enjoyed:</label>
+                                <input type="text" name="title" placeholder="e.g., The Dark Knight, Inception, Titanic..." required>
+                                <small>Our AI will find movies with similar themes, genres, and storytelling styles</small>
+                            </div>
+                            <button type="submit" class="btn-primary">Get Recommendations</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2>📞 Contact Developer</h2>
+            <div class="contact-content">
+                <div class="developer-info">
+                    <div class="developer-card">
+                        <div class="developer-header">
+                            <h3>👨‍💻 Kundan Kr Ray</h3>
+                            <p class="developer-title">AI & Data Science Enthusiast | Creating Real-World ML Solutions</p>
+                        </div>
+                        <div class="developer-description">
+                            <p>Passionate AI and data science enthusiast with hands-on experience in machine learning and backend development. Skilled at integrating ML models into real-world applications, with a growing focus on building complete intelligent systems that bridge data science and web technologies..</p>
+                        </div>
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <span class="contact-icon">📱</span>
+                                <span>700******5</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">✉️</span>
+                                <span>mahiray655@gmail.com</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">🐙</span>
+                                <a href="https://github.com/raykundan655" target="_blank">github.com/raykundan655</a>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">💼</span>
+                                <a href="https://www.linkedin.com/in/raykundan655" target="_blank">linkedin.com/in/raykundan655</a>
+                            </div>
+                        </div>
+                        <div class="developer-skills">
+                            <h4>🛠️ Technical Expertise:</h4>
+                            <div class="skills-tags">
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">Machine Learning</span>
+                                <span class="skill-tag">Flask</span>
+                                <span class="skill-tag">AI/ML</span>
+                                <span class="skill-tag">Data Science</span>
+                                <span class="skill-tag">Web Development</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loading Modal -->
+    <div id="loadingModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="loading-spinner"></div>
+            <p>Processing your request...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
