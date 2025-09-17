@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt 
 import seaborn as sns
+import numpy as np
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
@@ -8,6 +9,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 import pickle 
+
 
 data=pd.read_csv(r"C:\Users\USER\Downloads\Student_Performance.csv")
 
@@ -73,4 +75,5 @@ with open("StudentPerformance.pkl","wb") as fb:
 
 # With Pipeline
 # You don’t have to preprocess separately
+
 # Everything (preprocessing + model) happens in one .fit() and .predict() call
